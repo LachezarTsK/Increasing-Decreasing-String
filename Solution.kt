@@ -14,17 +14,17 @@ class Solution {
 
         var index = 0
         val increasing = true
-        val alternatingIncreasingDecreasing = CharArray(input.length)
+        val alternatingIncreasingDecreasing = StringBuilder()
 
-        while (index < alternatingIncreasingDecreasing.size) {
+        while (index < input.length) {
             index = addLetters(alternatingIncreasingDecreasing, index, increasing)
             index = addLetters(alternatingIncreasingDecreasing, index, !increasing)
         }
 
-        return alternatingIncreasingDecreasing.joinToString("")
+        return alternatingIncreasingDecreasing.toString()
     }
 
-    private fun addLetters(alternatingIncreasingDecreasing: CharArray, index: Int, increasing: Boolean): Int {
+    private fun addLetters(alternatingIncreasingDecreasing: StringBuilder, index: Int, increasing: Boolean): Int {
         val start = if (increasing) 0 else (ALPHABET_SIZE - 1)
         val end = if (increasing) ALPHABET_SIZE else (-1)
         val step = if (increasing) 1 else (-1)
@@ -35,11 +35,12 @@ class Solution {
         while (letter != end) {
             if (frequency[letter] > 0) {
                 --frequency[letter];
-                alternatingIncreasingDecreasing[i] = (letter + 'a'.code).toChar()
+                alternatingIncreasingDecreasing.append((letter + 'a'.code).toChar())
                 ++i
             }
             letter += step
         }
+
         return i
     }
 }
